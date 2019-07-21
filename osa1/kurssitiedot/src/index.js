@@ -15,6 +15,7 @@ const Content = (props) => {
         <div>
             {props.courseName.parts.map(part => {
                 return (
+                    //part.name as a key is less than optimal, but I think we'll come back to this later
                     <Part key={part.name} partName={part.name} exerciseCount={part.exercises}/>
                 )
             })}
@@ -44,23 +45,22 @@ const App = () => {
     const course = {
         name: 'Half Stack application development',
         parts: [
-          {
+        {
             name: 'Fundamentals of React',
             exercises: 10
-          },
-          {
+        },
+        {
             name: 'Using props to pass data',
             exercises: 7
-          },
-          {
+        },
+        {
             name: 'State of a component',
             exercises: 14
-          }
+        }
         ]
-      }
+    }
 
     return (
-        
         <div>
             <Header courseName={course}/>
             <Content courseName={course}/>
