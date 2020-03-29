@@ -1,3 +1,4 @@
+//this was done (along with part 0) already in the summer of 2019. I looked through it and made sure I understood what I had done and that it worked.
 import React from 'react'
 import ReactDOM from 'react-dom'
 
