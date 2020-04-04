@@ -7,7 +7,17 @@ const Headline = ({text}) => <h1>{text}</h1>
 
 const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</button>
 
-const Counter = ({text, count}) => <p>{text} {count}</p>
+const DisplayNumber = ({text, number , symbol}) => {
+  if (isNaN(number)) {
+    return (
+      <p>{text} is not defined.</p>
+    )
+  }
+  
+  return (
+    <p>{text} {number} {symbol}</p>
+  )
+} 
 
 const App = () => {
   // tallenna napit omaan tilaansa
@@ -19,6 +29,13 @@ const App = () => {
   const incrementBad = () => setBad(bad +1)  
   const incrementNeutral = () => setNeutral(neutral +1)
 
+  //arithmetic is so simple that I think it's not necessary to have average counting as it's own module
+  //also this let's me reuse the module I made to show the numbers
+  let totalAnswers = good + bad + neutral
+  let average = (good - bad)/totalAnswers //could round this, but I don't feel like it
+
+  let positivePercentage = good/totalAnswers*100
+  
   return (
     <div className="container">
       <Headline text="Give Feedback" />
@@ -26,9 +43,11 @@ const App = () => {
       <Button text="Neutral" handleClick={incrementNeutral}></Button>
       <Button text="Bad" handleClick={incrementBad}></Button>
       <Headline text="Statistics" />
-      <Counter text="Good" count={good} />
-      <Counter text="Neutral" count={neutral} />
-      <Counter text="Bad" count={bad} />
+      <DisplayNumber text="Good" number={good} />
+      <DisplayNumber text="Neutral" number={neutral} />
+      <DisplayNumber text="Bad" number={bad} />
+      <DisplayNumber text="Average" number={average} />
+      <DisplayNumber text="positive" number={positivePercentage} symbol="%" />
     </div>
   )
 }
