@@ -14,14 +14,10 @@ const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</bu
 
 const StatisticLine = ({text, number , symbol}) => {
   if (isNaN(number)) {
-    return (
-      <p>{text} is not defined.</p>
-    )
+    return (<tr><td>{text}</td><td>is not defined.</td></tr>)
   }
   
-  return (
-    <p>{text} {number} {symbol}</p>
-  )
+  return (<tr><td>{text}</td><td>{number}</td><td>{symbol}</td></tr>)
 } 
 
 //displays only from objects that have number values (should've used a Map instead of an object I think)
@@ -31,7 +27,7 @@ const DisplayEntries = ({valuesObject}) => {
   return (
     <>
       {entries.map(entry => (
-        <StatisticLine key={entry[0]} text={entry[0]} number={entry[1]} />//I keep thinking there's something wrong with this mapping but it works without errors, so I guess it's good enough
+          <StatisticLine key={entry[0]} text={entry[0]} number={entry[1]} />
       ))}
     </>
   )
@@ -62,10 +58,20 @@ const Statistics = ({valuesObject}) => {
  
   return (
     <div>
-    <Headline text="Statistics" />
-    <DisplayEntries valuesObject={valuesObject} />
-    <StatisticLine text="Average (good = 1, bad = -1)" number={average} />
-    <StatisticLine text="positive" number={positivePercentage} symbol="%" />
+      
+      <table>
+        <thead>
+          <tr>
+            <th><Headline text="Statistics" /></th>
+          </tr>
+        </thead>
+        <tbody>
+          <DisplayEntries valuesObject={valuesObject} />
+          <StatisticLine text="Total Answers" number={total} />
+          <StatisticLine text="Average (good = 1, bad = -1)" number={average} />
+          <StatisticLine text="Positive" number={positivePercentage} symbol="%" />
+        </tbody>
+      </table>
     </div>
   )
 
@@ -95,8 +101,6 @@ const App = () => {
       <Button text="Good" handleClick={incrementGood}></Button>
       <Button text="Neutral" handleClick={incrementNeutral}></Button>
       <Button text="Bad" handleClick={incrementBad}></Button>
-      
-      
       <Statistics valuesObject={combinedClicks} />
     </div>
   )
