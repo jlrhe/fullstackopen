@@ -34,7 +34,7 @@ const App = () => {
   let totalAnswers = good + bad + neutral
   let average = (good - bad)/totalAnswers //could round this, but I don't feel like it
 
-  let positivePercentage = good/totalAnswers*100
+  let positivePercentage = parseInt(good/totalAnswers*10000)/100 //I know there's a rounding function but I can't be bothered to look it up
   
   return (
     <div className="container">
@@ -46,7 +46,7 @@ const App = () => {
       <DisplayNumber text="Good" number={good} />
       <DisplayNumber text="Neutral" number={neutral} />
       <DisplayNumber text="Bad" number={bad} />
-      <DisplayNumber text="Average" number={average} />
+      <DisplayNumber text="Average (good = 1, bad = -1)" number={average} />
       <DisplayNumber text="positive" number={positivePercentage} symbol="%" />
     </div>
   )
