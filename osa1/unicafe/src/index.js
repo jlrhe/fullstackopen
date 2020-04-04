@@ -11,7 +11,8 @@ const Headline = ({text}) => <h1>{text}</h1>
 
 const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</button>
 
-const DisplayNumber = ({text, number , symbol}) => {
+
+const StatisticLine = ({text, number , symbol}) => {
   if (isNaN(number)) {
     return (
       <p>{text} is not defined.</p>
@@ -23,14 +24,14 @@ const DisplayNumber = ({text, number , symbol}) => {
   )
 } 
 
-//displays only from objects that have number values
+//displays only from objects that have number values (should've used a Map instead of an object I think)
 const DisplayEntries = ({valuesObject}) => {
   let entries = Object.entries(valuesObject)
 
   return (
     <>
       {entries.map(entry => (
-        <DisplayNumber key={entry[0]} text={entry[0]} number={entry[1]} />//I keep thinking there's something wrong with this mapping but it works without errors, so I guess it's good enough
+        <StatisticLine key={entry[0]} text={entry[0]} number={entry[1]} />//I keep thinking there's something wrong with this mapping but it works without errors, so I guess it's good enough
       ))}
     </>
   )
@@ -47,10 +48,12 @@ const Statistics = ({valuesObject}) => {
     total = total + values[i]
   }
 
-  //this is just for the assignment, I think my solution in the DisplayNumber component is more elegant
+  //this is just for the assignment, I think my solution in the StatisticLine component is more elegant
   if (total === 0) {
     return (
-      <p>No feedback given</p>
+      <div>
+        <p>No feedback given</p>
+      </div>
     )
   }
 
@@ -58,12 +61,12 @@ const Statistics = ({valuesObject}) => {
   let positivePercentage = parseInt(valuesObject.good/total*10000)/100 //I know there's a rounding function but I can't be bothered to look it up
  
   return (
-    <>
+    <div>
     <Headline text="Statistics" />
     <DisplayEntries valuesObject={valuesObject} />
-    <DisplayNumber text="Average (good = 1, bad = -1)" number={average} />
-    <DisplayNumber text="positive" number={positivePercentage} symbol="%" />
-    </>
+    <StatisticLine text="Average (good = 1, bad = -1)" number={average} />
+    <StatisticLine text="positive" number={positivePercentage} symbol="%" />
+    </div>
   )
 
 }
