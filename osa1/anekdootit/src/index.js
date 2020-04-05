@@ -3,9 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 const App = (props) => {
-  const [selected, setSelected] = useState(0)
 
   const anecdoteCount = anecdotes.length
+
+  const [selected, setSelected] = useState(Math.floor(Math.random() * anecdoteCount))
+  const [votes, setVotes] = useState(new Array(anecdoteCount).fill(0))
+
+  const voteAnecdote = () => {
+    let newVotes = [...votes]
+    newVotes[selected] += 1
+    setVotes(newVotes)
+  }
+
 
   const randomNewIndex = (lenght, previous) => {
 
@@ -27,8 +36,11 @@ const App = (props) => {
   return (
     <div className="container">
       <h1>Anecdotes</h1>
+      
+      {props.anecdotes[selected]}<br/><br/>
+      Votes: {votes[selected]}.<br/>
+      <Button text="Vote" handleClick={voteAnecdote}></Button>
       <Button text="Next (random) anecdote" handleClick={randomizeAnecdote}></Button><br/><br/>
-      {props.anecdotes[selected]}
       
     </div>
 
