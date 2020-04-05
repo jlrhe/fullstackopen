@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</button>
+
+const DisplayAnecdote = ({anecdotes, index}) => <p>{anecdotes[index]}</p>
+
+const DisplayVotes = ({votes, index}) => <p>This anecdote has {votes[index]} votes.</p>
+
 const App = (props) => {
 
   const anecdoteCount = anecdotes.length
@@ -15,37 +21,40 @@ const App = (props) => {
     setVotes(newVotes)
   }
 
-
   const randomNewIndex = (lenght, previous) => {
-
     let result
-    
     //if you can get this to loop forever go fill a lottery ticket
     do {
       result = Math.floor(Math.random() * lenght)
       console.log("random index: ", result)
     } while (result === previous)
-
     return result
   }
 
   const randomizeAnecdote = () => setSelected(randomNewIndex(anecdoteCount, selected))
 
-  const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</button>
+  let mostVotes = Math.max(...votes)
 
+  let mostVotesIndex = votes.indexOf(mostVotes)
+
+
+  //as per the assignment only one of the anecdotes with most votes is shown in case of ties
   return (
     <div className="container">
       <h1>Anecdotes</h1>
-      
-      {props.anecdotes[selected]}<br/><br/>
-      Votes: {votes[selected]}.<br/>
+      <DisplayAnecdote anecdotes={props.anecdotes} index={selected} />
+      <DisplayVotes votes={votes} index={selected}></DisplayVotes>
       <Button text="Vote" handleClick={voteAnecdote}></Button>
       <Button text="Next (random) anecdote" handleClick={randomizeAnecdote}></Button><br/><br/>
-      
+      <h2>Anecdote with most votes:</h2>
+      <DisplayAnecdote anecdotes={props.anecdotes} index={mostVotesIndex} />
+      <DisplayVotes votes={votes} index={mostVotesIndex}></DisplayVotes>
     </div>
 
   )
 }
+
+
 
 const anecdotes = [
   'If it hurts, do it more often',
