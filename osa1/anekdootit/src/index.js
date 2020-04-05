@@ -26,7 +26,6 @@ const App = (props) => {
     //if you can get this to loop forever go fill a lottery ticket
     do {
       result = Math.floor(Math.random() * lenght)
-      console.log("random index: ", result)
     } while (result === previous)
     return result
   }
