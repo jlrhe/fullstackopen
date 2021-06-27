@@ -2,17 +2,16 @@ import React from 'react'
 
 const Course = ({ course }) => {
   return (
-    <>
+    <section>
       <Header name={course.name}></Header>
-      <Content parts={course.parts}></Content>
-      
-    </>
+      <Content parts={course.parts}></Content> 
+    </section>
   )
 }
 
 const Header = ({ name }) => {
   return (
-    <h1>{name}</h1>
+    <h2>{name}</h2>
   )
 }
 
