@@ -1,3 +1,3 @@
-# fullstackopen2020
+# fullstackopen2021
 https://fullstackopen.com/
-part 0 (osa0) and first assignments of part 1 (osa1) were done in 2019.
+First assignments were done in 2019-2020, but then the funniest thing happened...
